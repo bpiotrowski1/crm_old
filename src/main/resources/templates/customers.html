@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="/semantic.min.js"></script>
+
+    <title>CRM</title>
+
+</head>
+<body>
+<div th:replace="fragments :: header"></div>
+
+<div id="main">
+<div class="ui grid">
+    <table id="customers" class="ui celled table striped">
+        <thead>
+            <tr class="thead">
+                <th class="center aligned">field1</th>
+                <th class="center aligned">field2</th>
+                <th class="center aligned">field3</th>
+                <th>Nazwa</th>
+                <th class="center aligned">check1</th>
+                <th class="center aligned">check2</th>
+                <th class="center aligned">check3</th>
+                <th class="center aligned"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="customer: ${customersList}" class="data">
+                <td class="left collapsing center aligned filled"
+                    th:if="${customer.field2!=null and customer.field2!=''}">
+                    <i class="check icon"></i>
+                </td>
+                <td class="right collapsing center aligned"
+                    th:if="${customer.field2==null or customer.field2==''}">
+                    <i class="x icon"></i>
+                </td>
+                <td class="left collapsing center aligned filled" th:if="${customer.field4!=null and customer.field4!=''}">
+                    <i class="check icon"></i>
+                </td>
+                <td class="right collapsing center aligned" th:if="${customer.field4==null or customer.field4==''}">
+                    <i class="x icon"></i>
+                </td>
+                <td class="left collapsing center aligned filled"
+                    th:if="${customer.field6!=null and customer.field6!=''}">
+                    <i class="check icon"></i>
+                </td>
+                <td class="right collapsing center aligned"
+                    th:if="${customer.field6==null or customer.field6==''}">
+                    <i class="x icon"></i>
+                </td>
+                <td th:text="${customer.name}" class="name"></td>
+                <td class="right collapsing center aligned filled" th:if="${customer.check1==true}">
+                    <i class="check icon"></i>
+                </td>
+                <td class="right collapsing center aligned" th:if="${customer.check1==false}">
+                    <i class="x icon"></i>
+                </td>
+                <td class="right collapsing center aligned filled" th:if="${customer.check2==true}">
+                    <i class="check icon"></i>
+                </td>
+                <td class="right collapsing center aligned" th:if="${customer.check2==false}">
+                    <i class="x icon"></i>
+                </td>
+                <td class="right collapsing center aligned filled" th:if="${customer.check3==true}">
+                    <i class="check icon"></i>
+                </td>
+                <td class="right collapsing center aligned" th:if="${customer.check3==false}">
+                    <i class="x icon"></i>
+                </td>
+                <td class="right aligned collapsing">
+                    <button class="ui blue button" data-toggle="modal" data-target="modal">Edytuj</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</div>
+
+<div th:replace="fragments :: footer"></div>
+
+
+</body>
+</html>

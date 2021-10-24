@@ -1,0 +1,93 @@
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    background-color: #FFFFFF;
+    scrollbar-width: none;
+    margin: 0;
+}
+
+.main.container {
+    margin-top: 7em;
+    min-height: 750px;
+}
+
+.ui.menu .item img.logo {
+    margin-right: 1.5em;
+}
+
+.filled {
+    background-color: #21BA45;
+}
+
+.center.aligned {
+    min-width: 90px;
+}
+
+.error {
+    color: red;
+}
+
+.link-from-file {
+    color: black;
+}
+
+.link-from-file:hover {
+    color: #21BA45;
+}
+
+#term {
+    margin-top: 6px;
+    height: 32px;
+}
+
+#main {
+    margin-top: 58px;
+    min-height: 760px;
+}
+
+.header {
+    color: black;
+}
+
+#customers {
+    margin-bottom: 0;
+}
+
+#page {
+    margin-top: 14px;
+    margin-left: 5px;
+    padding-top: 20px;
+    min-height: 60px;
+    width: 100%;
+    background-color: #EDEDED;
+    font-size: 1.7em;
+    text-align: center;
+}
+
+#page > a {
+    color: #1F1F1F;
+    border: 1px solid black;
+    padding: 3px 3px 3px 3px;
+    background: #fff;
+    margin-right: 10px;
+}
+
+#page > a:hover {
+    color: #21BA45;
+}
+
+#footer {
+    margin-top: 14px;
+}
+
+.name:hover {
+    background-color: #EDEDED;
+}

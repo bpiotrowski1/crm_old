@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+  <link rel="stylesheet" href="/style.css" />
+  <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous"></script>
+  <script src="/semantic.min.js"></script>
+
+  <title>CRM</title>
+
+</head>
+<body>
+<div th:replace="fragments :: header"></div>
+
+<body>
+<div class="ui main text container">
+  <h2 class="ui header">Dodaj klienta</h2>
+  <hr/>
+  <form class="ui form" th:action="@{/customer/add}" method="post" th:object="${customerForm}">
+    <div class="two fields">
+      <div class="field">
+        <label for="name">Nazwa:<span th:if="${nameError == 1}" class="error">  (ma być w zakresie 3-255 znaków)</span></label>
+        <input th:if="${param.name != null}" type="text" name="name" id="name" th:value="${param.name}">
+        <input th:unless="${param.name != null}" type="text" name="name" id="name" th:value="${customerForm.name}">
+      </div>
+      <div class="field">
+        <label for="field1">field1:<span th:if="${field1Error == 1}" class="error">  (ma być w zakresie do 255 znaków)</span></label>
+        <input type="text" name="field1" id="field1" th:value="${customerForm.field1}">
+      </div>
+    </div>
+    <div class="two fields">
+      <div class="field">
+        <label for="field2">field2:<span th:if="${field2Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <input type="text" name="field2" id="field2" th:value="${customerForm.field2}">
+      </div>
+      <div class="field">
+        <label for="field3">field3:<span th:if="${field3Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <input type="text" name="field3" id="field3" th:value="${customerForm.field3}">
+      </div>
+    </div>
+    <div class="two fields">
+      <div class="field">
+        <label for="field4">field4:<span th:if="${field4Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <input type="text" name="field4" id="field4" th:value="${customerForm.field4}">
+      </div>
+      <div class="field">
+        <label for="field5">field5:<span th:if="${field5Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <input type="text" name="field5" id="field5" th:value="${customerForm.field5}">
+      </div>
+    </div>
+    <div class="two fields">
+      <div class="field">
+        <label for="field6">field6:<span th:if="${field6Error == 1}" class="error">  (ma być w zakresie do 255 znaków)</span></label>
+        <input type="text" name="field6" id="field6" th:value="${customerForm.field6}">
+      </div>
+      <div class="field">
+        <label for="field7">field7:<span th:if="${field7Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <input type="text" name="field7" id="field7" th:value="${customerForm.field7}">
+      </div>
+    </div><br/>
+    <div class="inline filed">
+      <div class="ui toggle checkbox" style="margin-right: 100px">
+        <input type="checkbox" name="check1" id="check1">
+        <label for="check1">check1</label>
+      </div>
+      <div class="ui toggle checkbox" style="margin-right: 100px">
+        <input type="checkbox" name="check2" id="check2">
+        <label for="check2">check2</label>
+      </div>
+      <div class="ui toggle checkbox">
+        <input type="checkbox" name="check3" id="check3">
+        <label for="check3">check3</label>
+      </div>
+    </div><br/>
+    <div class="field">
+      <label for="description">Opis:<span th:if="${descriptionError == 1}" class="error">  (ma być w zakresie do 1000 znaków)</span></label>
+      <textarea class="text-area w-100" rows="15" name="description" id="description"></textarea>
+    </div>
+    <div style="text-align: right">
+      <button type="submit" class="ui positive labeled icon button">
+        <i class="checkmark icon"></i>Dodaj
+      </button>
+    </div>
+  </form>
+
+</div>
+
+<div th:replace="fragments :: footer-margin"></div>
+
+<script>
+  $('.ui.checkbox')
+          .checkbox()
+  ;
+</script>
+
+</body>
+</html>
