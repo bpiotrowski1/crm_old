@@ -20,6 +20,12 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @GetMapping("/")
+    public String getCustomers(Model model) {
+        model.addAttribute("customersList", customerService.getAllCustomers());
+        return "customers";
+    }
+
     @GetMapping("/customer/add")
     public String getCustomerAddForm(Model model) {
         model.addAttribute("customerForm", new CustomerDto());
