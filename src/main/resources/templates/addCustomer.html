@@ -30,52 +30,52 @@
         <input th:unless="${param.name != null}" type="text" name="name" id="name" th:value="${customerForm.name}">
       </div>
       <div class="field">
-        <label for="field1">field1:<span th:if="${field1Error == 1}" class="error">  (ma być w zakresie do 255 znaków)</span></label>
+        <label for="field1" th:text="${settings.field1}"><span th:if="${field1Error == 1}" class="error">  (ma być w zakresie do 255 znaków)</span></label>
         <input type="text" name="field1" id="field1" th:value="${customerForm.field1}">
       </div>
     </div>
     <div class="two fields">
       <div class="field">
-        <label for="field2">field2:<span th:if="${field2Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <label for="field2" th:text="${settings.field2}"><span th:if="${field2Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
         <input type="text" name="field2" id="field2" th:value="${customerForm.field2}">
       </div>
       <div class="field">
-        <label for="field3">field3:<span th:if="${field3Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <label for="field3" th:text="${settings.field3}">:<span th:if="${field3Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
         <input type="text" name="field3" id="field3" th:value="${customerForm.field3}">
       </div>
     </div>
     <div class="two fields">
       <div class="field">
-        <label for="field4">field4:<span th:if="${field4Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <label for="field4" th:text="${settings.field4}"><span th:if="${field4Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
         <input type="text" name="field4" id="field4" th:value="${customerForm.field4}">
       </div>
       <div class="field">
-        <label for="field5">field5:<span th:if="${field5Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <label for="field5" th:text="${settings.field5}"><span th:if="${field5Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
         <input type="text" name="field5" id="field5" th:value="${customerForm.field5}">
       </div>
     </div>
     <div class="two fields">
       <div class="field">
-        <label for="field6">field6:<span th:if="${field6Error == 1}" class="error">  (ma być w zakresie do 255 znaków)</span></label>
+        <label for="field6" th:text="${settings.field6}"><span th:if="${field6Error == 1}" class="error">  (ma być w zakresie do 255 znaków)</span></label>
         <input type="text" name="field6" id="field6" th:value="${customerForm.field6}">
       </div>
       <div class="field">
-        <label for="field7">field7:<span th:if="${field7Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
+        <label for="field7" th:text="${settings.field7}"><span th:if="${field7Error == 1}" class="error">  (ma być w zakresie do 200 znaków)</span></label>
         <input type="text" name="field7" id="field7" th:value="${customerForm.field7}">
       </div>
     </div><br/>
     <div class="inline filed">
       <div class="ui toggle checkbox" style="margin-right: 100px">
         <input type="checkbox" name="check1" id="check1">
-        <label for="check1">check1</label>
+        <label for="check1" th:text="${settings.check1}"></label>
       </div>
       <div class="ui toggle checkbox" style="margin-right: 100px">
         <input type="checkbox" name="check2" id="check2">
-        <label for="check2">check2</label>
+        <label for="check2" th:text="${settings.check2}"></label>
       </div>
       <div class="ui toggle checkbox">
         <input type="checkbox" name="check3" id="check3">
-        <label for="check3">check3</label>
+        <label for="check3" th:text="${settings.check3}"></label>
       </div>
     </div><br/>
     <div class="field">

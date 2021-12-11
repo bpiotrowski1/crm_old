@@ -32,6 +32,7 @@ public class CustomerController {
     @GetMapping("/customer/add")
     public String getCustomerAddForm(Model model) {
         model.addAttribute("customerForm", new CustomerDto());
+        model.addAttribute("settings", settingsService.getSettings());
         return "addCustomer";
     }
 
