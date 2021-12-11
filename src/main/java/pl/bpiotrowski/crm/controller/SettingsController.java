@@ -22,7 +22,7 @@ public class SettingsController {
 
     @GetMapping("/settings")
     public String getSettingsForm(Model model) {
-        model.addAttribute("settingsForm", new SettingsDto());
+        model.addAttribute("settingsForm", settingsService.getSettings());
         return "settings";
     }
 
