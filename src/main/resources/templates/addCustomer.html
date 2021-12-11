@@ -17,12 +17,12 @@
 
 <body>
 <div class="ui main text container">
-  <h2 class="ui header">Dodaj klienta</h2>
+  <h2 class="ui header" th:text="#{crm.customer.add}"></h2>
   <hr/>
   <form class="ui form" th:action="@{/customer/add}" method="post" th:object="${customerForm}">
     <div class="two fields">
       <div class="field">
-        <label for="name">Nazwa:<span th:if="${nameError == 1}" class="error">  (ma być w zakresie 3-255 znaków)</span></label>
+        <label for="name" th:text="#{crm.name}"><span th:if="${nameError == 1}" class="error">  (ma być w zakresie 3-255 znaków)</span></label>
         <input th:if="${param.name != null}" type="text" name="name" id="name" th:value="${param.name}">
         <input th:unless="${param.name != null}" type="text" name="name" id="name" th:value="${customerForm.name}">
       </div>
@@ -76,12 +76,12 @@
       </div>
     </div><br/>
     <div class="field">
-      <label for="description">Opis:<span th:if="${descriptionError == 1}" class="error">  (ma być w zakresie do 1000 znaków)</span></label>
+      <label for="description" th:text="#{crm.description}"><span th:if="${descriptionError == 1}" class="error">  (ma być w zakresie do 1000 znaków)</span></label>
       <textarea class="text-area w-100" rows="15" name="description" id="description"></textarea>
     </div>
     <div style="text-align: right">
       <button type="submit" class="ui positive labeled icon button">
-        <i class="checkmark icon"></i>Dodaj
+        <i class="checkmark icon"></i><span th:text="#{crm.add}"></span>
       </button>
     </div>
   </form>

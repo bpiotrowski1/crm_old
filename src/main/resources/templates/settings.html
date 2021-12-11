@@ -17,7 +17,7 @@
 
 <body>
 <div class="ui main text container">
-  <h2 class="ui header">Ustawienia strony</h2>
+  <h2 class="ui header" th:text="#{crm.settings.change}"></h2>
   <hr/>
   <form class="ui form" th:action="@{/settings}" method="post" th:object="${settingsForm}">
     <div class="two fields">
@@ -71,7 +71,7 @@
     </div>
     <div style="text-align: right">
       <button type="submit" class="ui positive labeled icon button">
-        <i class="checkmark icon"></i>Dodaj
+        <i class="checkmark icon"></i><span th:text="#{crm.save}"></span>
       </button>
     </div>
   </form>

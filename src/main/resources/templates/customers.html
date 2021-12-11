@@ -23,7 +23,7 @@
                 <th class="center aligned" th:text="${settings.field1}"></th>
                 <th class="center aligned" th:text="${settings.field2}"></th>
                 <th class="center aligned" th:text="${settings.field3}"></th>
-                <th>Nazwa</th>
+                <th th:text="#{crm.name}"></th>
                 <th class="center aligned" th:text="${settings.check1}"></th>
                 <th class="center aligned" th:text="${settings.check2}"></th>
                 <th class="center aligned" th:text="${settings.check3}"></th>
@@ -74,7 +74,7 @@
                     <i class="x icon"></i>
                 </td>
                 <td class="right aligned collapsing">
-                    <button class="ui blue button" data-toggle="modal" data-target="modal" th:onclick="'getCustomerToEdit(' + ${customer.id} + ')'">Edytuj</button>
+                    <button class="ui blue button" data-toggle="modal" data-target="modal" th:onclick="'getCustomerToEdit(' + ${customer.id} + ')'" th:text="#{crm.edit}"></button>
                 </td>
             </tr>
         </tbody>
@@ -83,15 +83,14 @@
 </div>
 
 <div id="edit" class="ui modal">
-    <div class="header">
-        Edycja
+    <div class="header" th:text="#{crm.customer.edit}">
     </div>
     <div class="content">
         <form class="ui form" th:action="@{/customer/edit}" method="post">
             <input type="hidden" id="id" name="id">
             <div class="two fields">
                 <div class="field ">
-                    <label for="name">Nazwa:</label>
+                    <label for="name" th:text="#{crm.name}"></label>
                     <input type="text" name="name" id="name">
                 </div>
                 <div class="field">
@@ -144,15 +143,15 @@
                 </div>
             </div><br/>
             <div class="field">
-                <label for="description">Opis:</label>
+                <label for="description" th:text="#{crm.description}"></label>
                 <textarea class="text-area w-100" rows="15" name="description" id="description"></textarea>
             </div>
             <div style="text-align: right">
                 <button id="cancel" type="reset" class="ui negative basic cancel button" th:onclick="'hideEditModal()'">
-                    <i class="remove icon"></i>Zamknij
+                    <i class="remove icon"></i><span th:text="#{crm.cancel}"></span>
                 </button>
                 <button id="save" type="submit" class="ui positive button">
-                    <i class="checkmark icon"></i>Zapisz
+                    <i class="checkmark icon"></i><span th:text="#{crm.save}"></span>
                 </button>
             </div>
         </form>
