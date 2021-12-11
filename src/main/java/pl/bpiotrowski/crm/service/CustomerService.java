@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.bpiotrowski.crm.dto.CustomerDto;
 import pl.bpiotrowski.crm.entity.Customer;
 import pl.bpiotrowski.crm.exception.CustomerAlreadyExistsException;
+import pl.bpiotrowski.crm.exception.CustomerNotFoundException;
 import pl.bpiotrowski.crm.repository.CustomerRepository;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +32,7 @@ public class CustomerService {
 
     public CustomerDto findById(Long id) {
         return mapCustomerEntityToDto(customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer " + id + " not found")));
+                .orElseThrow(() -> new CustomerNotFoundException(id)));
     }
 
     public void createCustomer(CustomerDto customerDto) {
@@ -43,7 +44,7 @@ public class CustomerService {
 
     public void update(CustomerDto customerDto) throws Exception {
         Customer updatedCustomer = customerRepository.findById(customerDto.getId())
-                .orElseThrow(() -> new RuntimeException("Customer " + customerDto.getId() + " not found"));
+                .orElseThrow(() -> new CustomerNotFoundException(customerDto.getId()));
 
         Customer checkNameCustomer = customerRepository.findByName(customerDto.getName());
         if (checkNameCustomer != null && customerDto.getName().equals(checkNameCustomer.getName())
