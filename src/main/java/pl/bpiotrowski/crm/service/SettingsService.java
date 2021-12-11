@@ -12,13 +12,30 @@ public class SettingsService {
 
     private final SettingsRepository settingsRepository;
 
-    public void createCustomer(SettingsDto settingsDto) {
+    public void saveSettings(SettingsDto settingsDto) {
         settingsRepository.save(mapSettingsDtoToEntity(settingsDto));
     }
 
     public SettingsDto getSettings() {
         Settings settings = settingsRepository.findFirstByOrderByIdDesc();
-        return mapSettingsEntityToDto(settings == null ? new Settings() : settings);
+        return settings == null ? setDefaultNamesForFields() : mapSettingsEntityToDto(settings);
+    }
+
+    private SettingsDto setDefaultNamesForFields() {
+        SettingsDto settingsDto = new SettingsDto();
+        settingsDto.setField1("FIELD1");
+        settingsDto.setField2("FIELD2");
+        settingsDto.setField3("FIELD3");
+        settingsDto.setField4("FIELD4");
+        settingsDto.setField5("FIELD5");
+        settingsDto.setField6("FIELD6");
+        settingsDto.setField7("FIELD7");
+        settingsDto.setCheck1("CHECK1");
+        settingsDto.setCheck2("CHECK2");
+        settingsDto.setCheck3("CHECK3");
+
+        saveSettings(settingsDto);
+        return settingsDto;
     }
 
     private SettingsDto mapSettingsEntityToDto(Settings entity) {
