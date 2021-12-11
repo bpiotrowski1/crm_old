@@ -29,11 +29,29 @@ public class CustomerService {
         return result;
     }
 
+    public CustomerDto findById(Long id) {
+        return mapCustomerEntityToDto(customerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Customer " + id + " not found")));
+    }
+
     public void createCustomer(CustomerDto customerDto) {
-        if (customerRepository.findByName(customerDto.getName()).isPresent())
+        if (customerRepository.findByName(customerDto.getName()) != null)
             throw new CustomerAlreadyExistsException(customerDto.getName());
 
         customerRepository.save(mapCustomerDtoToEntity(customerDto));
+    }
+
+    public void update(CustomerDto customerDto) throws Exception {
+        Customer updatedCustomer = customerRepository.findById(customerDto.getId())
+                .orElseThrow(() -> new RuntimeException("Customer " + customerDto.getId() + " not found"));
+
+        Customer checkNameCustomer = customerRepository.findByName(customerDto.getName());
+        if (checkNameCustomer != null && customerDto.getName().equals(checkNameCustomer.getName())
+                && !customerDto.getName().equals(updatedCustomer.getName())) {
+            throw new CustomerAlreadyExistsException(customerDto.getName());
+        }
+
+        customerRepository.save(setFieldsFromDto(updatedCustomer, customerDto));
     }
 
     private String getDateTimeNow() {
@@ -44,27 +62,30 @@ public class CustomerService {
 
     private Customer mapCustomerDtoToEntity(CustomerDto customerDto) {
         Customer customer = new Customer();
+        return setFieldsFromDto(customer, customerDto);
+    }
 
-        customer.setName(customerDto.getName());
-        customer.setField1(customerDto.getField1());
-        customer.setField2(customerDto.getField2());
-        customer.setField3(customerDto.getField3());
-        customer.setField4(customerDto.getField4());
-        customer.setField5(customerDto.getField5());
-        customer.setField6(customerDto.getField6());
-        customer.setField7(customerDto.getField7());
-        customer.setCheck1(customerDto.isCheck1());
-        customer.setCheck2(customerDto.isCheck2());
-        customer.setCheck3(customerDto.isCheck3());
-        customer.setDescription(customerDto.getDescription());
-        customer.setLastUpdate(getDateTimeNow());
-
-        return customer;
+    private Customer setFieldsFromDto(Customer entity, CustomerDto dto) {
+        entity.setName(dto.getName());
+        entity.setField1(dto.getField1());
+        entity.setField2(dto.getField2());
+        entity.setField3(dto.getField3());
+        entity.setField4(dto.getField4());
+        entity.setField5(dto.getField5());
+        entity.setField6(dto.getField6());
+        entity.setField7(dto.getField7());
+        entity.setCheck1(dto.isCheck1());
+        entity.setCheck2(dto.isCheck2());
+        entity.setCheck3(dto.isCheck3());
+        entity.setDescription(dto.getDescription());
+        entity.setLastUpdate(getDateTimeNow());
+        return entity;
     }
 
     private CustomerDto mapCustomerEntityToDto(Customer customer) {
         CustomerDto customerDto = new CustomerDto();
 
+        customerDto.setId(customer.getId());
         customerDto.setName(customer.getName());
         customerDto.setField1(customer.getField1());
         customerDto.setField2(customer.getField2());

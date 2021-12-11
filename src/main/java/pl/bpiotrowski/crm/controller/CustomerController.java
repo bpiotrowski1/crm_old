@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.bpiotrowski.crm.dto.CustomerDto;
 import pl.bpiotrowski.crm.service.CustomerService;
 import pl.bpiotrowski.crm.service.SettingsService;
@@ -48,6 +45,30 @@ public class CustomerController {
             return "addCustomer";
         }
         customerService.createCustomer(customerDto);
+        return "redirect:/";
+    }
+
+    @GetMapping("/customer/edit/{id}")
+    public String getCustomerToEditForm(@PathVariable Long id, Model model) {
+        model.addAttribute("customerForm", customerService.findById(id));
+        model.addAttribute("settings", settingsService.getSettings());
+        return "editCustomer";
+    }
+
+    @PostMapping("/customer/edit")
+    public String editCustomer(@Valid @ModelAttribute CustomerDto customerDto, BindingResult bindingResult, Model model)
+            throws Exception {
+        if (bindingResult.getErrorCount() > 0) {
+            model.addAttribute("customerForm", customerDto);
+            model.addAttribute("settings", settingsService.getSettings());
+            for (int i = 0; i < bindingResult.getErrorCount(); i++) {
+                if (!bindingResult.getFieldErrors().get(i).getField().equals("id")) {
+                    model.addAttribute(bindingResult.getFieldErrors().get(i).getField() + "Error", 1);
+                }
+            }
+            return "editCustomer";
+        }
+        customerService.update(customerDto);
         return "redirect:/";
     }
 
