@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.bpiotrowski.crm.dto.CustomerDto;
 import pl.bpiotrowski.crm.service.CustomerService;
+import pl.bpiotrowski.crm.service.SettingsService;
 
 import javax.validation.Valid;
 
@@ -19,10 +20,12 @@ import javax.validation.Valid;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final SettingsService settingsService;
 
     @GetMapping("/")
     public String getCustomers(Model model) {
         model.addAttribute("customersList", customerService.getAllCustomers());
+        model.addAttribute("settings", settingsService.getSettings());
         return "customers";
     }
 
