@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CustomerAlreadyExistsException extends RuntimeException {
 
     public CustomerAlreadyExistsException(String name) {
-        super("Klient: " + name + " - juz istnieje.");
+        super("Customer: " + name + " - already exists");
     }
 
 }

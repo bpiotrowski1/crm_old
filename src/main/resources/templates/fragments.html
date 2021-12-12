@@ -13,21 +13,21 @@
                 CRM
             </a>
             <div class="ui simple dropdown item">
-                <a href="/">Klienci <i class="dropdown icon"></i></a>
+                <a href="/" th:text="#{crm.customers}"></a><i class="dropdown icon"></i>
                 <div class="menu">
-                    <a href="/customer/add" class="item">Dodaj klienta</a>
+                    <a href="/customer/add" class="item" th:text="#{crm.customer.add}"></a>
                 </div>
             </div>
             <div class="ui simple item">
-                <a href="/settings">Ustawienia</a>
+                <a href="/settings" th:text="#{crm.settings}"></a>
             </div>
             <form class="right menu" th:action="@{/customer/search}" method="get">
                 <div class="ui icon input">
-                    <input type="text" id="term" name="term" placeholder="Szukaj...">
+                    <input type="text" id="term" name="term" th:placeholder="#{crm.search}">
                     <i class="search link icon"></i>
                 </div>
             </form>
-            <a href="/logout" class="item">Wyloguj</a>
+            <a href="/logout" class="item" th:text="#{crm.user.logout}"></a>
             <!--div class="ui simple dropdown item">
                 Dropdown <i class="dropdown icon"></i>
                 <div class="menu">

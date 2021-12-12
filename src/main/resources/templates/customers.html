@@ -6,10 +6,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
     <link rel="stylesheet" href="/style.css" />
-    <script
-            src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-            crossorigin="anonymous"></script>
+    <script src="/jquery-3.6.0.min.js"></script>
     <script src="/semantic.min.js"></script>
 
     <title>CRM</title>
@@ -26,7 +23,7 @@
                 <th class="center aligned" th:text="${settings.field1}"></th>
                 <th class="center aligned" th:text="${settings.field2}"></th>
                 <th class="center aligned" th:text="${settings.field3}"></th>
-                <th>Nazwa</th>
+                <th th:text="#{crm.name}"></th>
                 <th class="center aligned" th:text="${settings.check1}"></th>
                 <th class="center aligned" th:text="${settings.check2}"></th>
                 <th class="center aligned" th:text="${settings.check3}"></th>
@@ -77,17 +74,120 @@
                     <i class="x icon"></i>
                 </td>
                 <td class="right aligned collapsing">
-                    <button class="ui blue button" data-toggle="modal" data-target="modal">Edytuj</button>
+                    <button class="ui blue button" data-toggle="modal" data-target="modal" th:onclick="'getCustomerToEdit(' + ${customer.id} + ')'" th:text="#{crm.edit}"></button>
                 </td>
             </tr>
         </tbody>
     </table>
-
 </div>
+</div>
+
+<div id="edit" class="ui modal">
+    <div class="header" th:text="#{crm.customer.edit}">
+    </div>
+    <div class="content">
+        <form class="ui form" th:action="@{/customer/edit}" method="post">
+            <input type="hidden" id="id" name="id">
+            <div class="two fields">
+                <div class="field ">
+                    <label for="name" th:text="#{crm.name}"></label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div class="field">
+                    <label for="field1" th:text="${settings.field1}"></label>
+                    <input type="text" name="field1" id="field1">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label for="field2" th:text="${settings.field2}"></label>
+                    <input type="text" name="field2" id="field2">
+                </div>
+                <div class="field">
+                    <label for="field3" th:text="${settings.field3}"></label>
+                    <input type="text" name="field3" id="field3">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label for="field4" th:text="${settings.field4}"></label>
+                    <input type="text" name="field4" id="field4">
+                </div>
+                <div class="field">
+                    <label for="field5" th:text="${settings.field5}"></label>
+                    <input type="text" name="field5" id="field5">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label for="field6" th:text="${settings.field6}"></label>
+                    <input type="text" name="field6" id="field6">
+                </div>
+                <div class="field">
+                    <label for="field7" th:text="${settings.field7}"></label>
+                    <input type="text" name="field7" id="field7">
+                </div>
+            </div><br/>
+            <div class="inline filed">
+                <div class="ui toggle checkbox" style="margin-right: 100px">
+                    <input type="checkbox" name="check1" id="check1">
+                    <label for="check1" th:text="${settings.check1}"></label>
+                </div>
+                <div class="ui toggle checkbox" style="margin-right: 100px">
+                    <input type="checkbox" name="check2" id="check2">
+                    <label for="check2" th:text="${settings.check2}"></label>
+                </div>
+                <div class="ui toggle checkbox" style="margin-right: 100px">
+                    <input type="checkbox" name="check3" id="check3">
+                    <label for="check3" th:text="${settings.check3}"></label>
+                </div>
+            </div><br/>
+            <div class="field">
+                <label for="description" th:text="#{crm.description}"></label>
+                <textarea class="text-area w-100" rows="15" name="description" id="description"></textarea>
+            </div>
+            <div style="text-align: right">
+                <button id="cancel" type="reset" class="ui negative basic cancel button" th:onclick="'hideEditModal()'">
+                    <i class="remove icon"></i><span th:text="#{crm.cancel}"></span>
+                </button>
+                <button id="save" type="submit" class="ui positive button">
+                    <i class="checkmark icon"></i><span th:text="#{crm.save}"></span>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div th:replace="fragments :: footer"></div>
 
+<script>
+    function getCustomerToEdit(id) {
+        $('#edit').modal('show');
+        loadFields(id);
+    }
+
+    function loadFields(id) {
+        const req = new XMLHttpRequest();
+        req.open("GET", '/customer/api/edit/' + id, true);
+        req.send();
+        req.onload = function () {
+            const json = JSON.parse(req.responseText);
+            document.getElementById('id').value = json.id;
+            document.getElementById('name').value = json.name;
+            document.getElementById('field1').value = json.field1;
+            document.getElementById('field2').value = json.field2;
+            document.getElementById('field3').value = json.field3;
+            document.getElementById('field4').value = json.field4;
+            document.getElementById('field5').value = json.field5;
+            document.getElementById('field6').value = json.field6;
+            document.getElementById('field7').value = json.field7;
+            document.getElementById('check1').checked = json.check1;
+            document.getElementById('check2').checked = json.check2;
+            document.getElementById('check3').checked = json.check3;
+            document.getElementById('description').value = json.description;
+        };
+    }
+</script>
 
 </body>
 </html>
