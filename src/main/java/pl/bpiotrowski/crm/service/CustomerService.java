@@ -35,18 +35,24 @@ public class CustomerService {
                 .orElseThrow(() -> new CustomerNotFoundException(id)));
     }
 
-    public void createCustomer(CustomerDto customerDto) {
-        if (customerRepository.findByName(customerDto.getName()) != null)
+    public CustomerDto findByName(String name) {
+        return mapCustomerEntityToDto(customerRepository.findByName(name)
+                .orElseThrow(() -> new CustomerNotFoundException(name)));
+    }
+
+    public CustomerDto createCustomer(CustomerDto customerDto) {
+        if (customerRepository.findByName(customerDto.getName()).isPresent())
             throw new CustomerAlreadyExistsException(customerDto.getName());
 
-        customerRepository.save(mapCustomerDtoToEntity(customerDto));
+        return mapCustomerEntityToDto(customerRepository.save(mapCustomerDtoToEntity(customerDto)));
     }
 
     public void update(CustomerDto customerDto) throws Exception {
         Customer updatedCustomer = customerRepository.findById(customerDto.getId())
                 .orElseThrow(() -> new CustomerNotFoundException(customerDto.getId()));
 
-        Customer checkNameCustomer = customerRepository.findByName(customerDto.getName());
+        Customer checkNameCustomer = customerRepository.findByName(customerDto.getName())
+                .orElseThrow(() -> new CustomerNotFoundException(customerDto.getName()));
         if (checkNameCustomer != null && customerDto.getName().equals(checkNameCustomer.getName())
                 && !customerDto.getName().equals(updatedCustomer.getName())) {
             throw new CustomerAlreadyExistsException(customerDto.getName());
@@ -84,22 +90,22 @@ public class CustomerService {
     }
 
     private CustomerDto mapCustomerEntityToDto(Customer customer) {
-        CustomerDto customerDto = new CustomerDto();
+        CustomerDto dto = new CustomerDto();
 
-        customerDto.setId(customer.getId());
-        customerDto.setName(customer.getName());
-        customerDto.setField1(customer.getField1());
-        customerDto.setField2(customer.getField2());
-        customerDto.setField3(customer.getField3());
-        customerDto.setField4(customer.getField4());
-        customerDto.setField5(customer.getField5());
-        customerDto.setField6(customer.getField6());
-        customerDto.setField7(customer.getField7());
-        customerDto.setCheck1(customer.isCheck1());
-        customerDto.setCheck2(customer.isCheck2());
-        customerDto.setCheck3(customer.isCheck3());
-        customerDto.setLastUpdate(customer.getLastUpdate());
+        dto.setId(customer.getId());
+        dto.setName(customer.getName());
+        dto.setField1(customer.getField1());
+        dto.setField2(customer.getField2());
+        dto.setField3(customer.getField3());
+        dto.setField4(customer.getField4());
+        dto.setField5(customer.getField5());
+        dto.setField6(customer.getField6());
+        dto.setField7(customer.getField7());
+        dto.setCheck1(customer.isCheck1());
+        dto.setCheck2(customer.isCheck2());
+        dto.setCheck3(customer.isCheck3());
+        dto.setLastUpdate(customer.getLastUpdate());
 
-        return customerDto;
+        return dto;
     }
 }

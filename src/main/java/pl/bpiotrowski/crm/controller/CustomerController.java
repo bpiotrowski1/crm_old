@@ -36,12 +36,7 @@ public class CustomerController {
     @PostMapping("/customer/add")
     public String saveCustomer(@Valid @ModelAttribute CustomerDto customerDto, BindingResult bindingResult, Model model) {
         if (bindingResult.getErrorCount() > 1) {      //1 - id null
-            model.addAttribute("customerForm", customerDto);
-            for (int i = 0; i < bindingResult.getErrorCount(); i++) {
-                if (!bindingResult.getFieldErrors().get(i).getField().equals("id")) {
-                    model.addAttribute(bindingResult.getFieldErrors().get(i).getField() + "Error", 1);
-                }
-            }
+            editCustomerWhenError(customerDto, bindingResult, model);
             return "addCustomer";
         }
         customerService.createCustomer(customerDto);
@@ -59,17 +54,21 @@ public class CustomerController {
     public String editCustomer(@Valid @ModelAttribute CustomerDto customerDto, BindingResult bindingResult, Model model)
             throws Exception {
         if (bindingResult.getErrorCount() > 0) {
-            model.addAttribute("customerForm", customerDto);
-            model.addAttribute("settings", settingsService.getSettings());
-            for (int i = 0; i < bindingResult.getErrorCount(); i++) {
-                if (!bindingResult.getFieldErrors().get(i).getField().equals("id")) {
-                    model.addAttribute(bindingResult.getFieldErrors().get(i).getField() + "Error", 1);
-                }
-            }
+            editCustomerWhenError(customerDto, bindingResult, model);
             return "editCustomer";
         }
         customerService.update(customerDto);
         return "redirect:/";
+    }
+
+    private void editCustomerWhenError(@ModelAttribute @Valid CustomerDto customerDto, BindingResult bindingResult, Model model) {
+        model.addAttribute("customerForm", customerDto);
+        model.addAttribute("settings", settingsService.getSettings());
+        for (int i = 0; i < bindingResult.getErrorCount(); i++) {
+            if (!bindingResult.getFieldErrors().get(i).getField().equals("id")) {
+                model.addAttribute(bindingResult.getFieldErrors().get(i).getField() + "Error", 1);
+            }
+        }
     }
 
 }

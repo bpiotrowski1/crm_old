@@ -11,6 +11,7 @@ public class CustomerDto {
     @NotNull
     private Long id;
 
+    @NotNull
     @Size(min = 3, max = 255)
     private String name;
 
